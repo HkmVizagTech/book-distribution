@@ -149,7 +149,8 @@ const Register = () => {
       <Card variant="outline" boxShadow="md">
         <CardHeader>
           <Heading as="h1" size="xl" textAlign="center" mb={2}>
-            Gita Workshop Registration
+           Srila Prabhupada's
+Book Distribution
           </Heading>
           <Text textAlign="center" color="gray.600">
             Please fill out this form to receive your selected book
