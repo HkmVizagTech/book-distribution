@@ -96,7 +96,7 @@ const Register = () => {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch("https://folk-server-b25x.onrender.com/api/whatsapp/register", {
+      const response = await fetch("https://74cb82ae-415b-40c6-8080-be5ce0661ddc.e1-us-east-azure.choreoapps.dev/api/whatsapp/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
