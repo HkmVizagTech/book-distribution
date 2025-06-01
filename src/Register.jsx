@@ -180,7 +180,7 @@ Book Distribution
                   placeholder="Enter 10-digit WhatsApp number"
                 />
                 <Text fontSize="sm" color="gray.500">
-                  Don’t include +91 or any country code. Just enter 10 digits.
+                 
                 </Text>
                 <FormErrorMessage>{errors.whatsappNumber}</FormErrorMessage>
               </FormControl>
