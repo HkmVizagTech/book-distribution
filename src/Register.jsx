@@ -41,6 +41,7 @@ const Register = () => {
     place: "",
     selectedBook: "",
     interestedInGitaSession: "",
+    folkOrCongregation:"",
   })
   const [errors, setErrors] = useState({})
   const toast = useToast()
@@ -130,6 +131,7 @@ const Register = () => {
         place: "",
         selectedBook: "",
         interestedInGitaSession: "",
+         folkOrCongregation: ""
       })
     } catch (error) {
       toast({
@@ -230,6 +232,20 @@ Book Distribution
                   ))}
                 </Select>
               </FormControl>
+                    <FormControl>
+  <FormLabel>FOLK / Congregation</FormLabel>
+
+
+  <Select
+    value={formData.folkOrCongregation}
+    onChange={(e) => handleInputChange("folkOrCongregation", e.target.value)}
+    placeholder="Select one"
+  >
+    <option value="FOLK">FOLK</option>
+    <option value="Congregation">Congregation</option>
+    <option value="None">None</option>
+  </Select>
+</FormControl>
 
               <FormControl isInvalid={!!errors.interestedInGitaSession} isRequired>
                 <FormLabel>Interested in Gita Session?</FormLabel>
