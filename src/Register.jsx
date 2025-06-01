@@ -243,7 +243,7 @@ Book Distribution
   >
     <option value="FOLK">FOLK</option>
     <option value="Congregation">Congregation</option>
-    <option value="None">None</option>
+   
   </Select>
 </FormControl>
 
