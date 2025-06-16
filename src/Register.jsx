@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
   Box,
   Button,
@@ -21,15 +21,15 @@ import {
   Divider,
 } from "@chakra-ui/react"
 
-const books = [
-  "Bhagavad Gita As It Is",
-  "Science of Self-Realization",
-  "Journey of Self-Discovery",
-  "Beyond Birth and Death",
-  "Perfect Questions, Perfect Answers",
-  "Life Comes From Life",
-  "The Quest for Enlightenment",
-]
+// const books = [
+//   "Bhagavad Gita As It Is",
+//   "Science of Self-Realization",
+//   "Journey of Self-Discovery",
+//   "Beyond Birth and Death",
+//   "Perfect Questions, Perfect Answers",
+//   "Life Comes From Life",
+//   "The Quest for Enlightenment",
+// ]
 
 const Register = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -45,6 +45,25 @@ const Register = () => {
   })
   const [errors, setErrors] = useState({})
   const toast = useToast()
+  const [books, setBooks] = useState([]);
+const [bookLoading, setBookLoading] = useState(true);
+
+useEffect(() => {
+  const fetchBooks = async () => {
+    try {
+      const response = await fetch("https://razor-pay-server-production.up.railway.app/book/getAllBooks");
+      const data = await response.json();
+      setBooks(data);
+    } catch (error) {
+      console.error("Error fetching books:", error);
+    } finally {
+      setBookLoading(false);
+    }
+  };
+
+  fetchBooks();
+}, []);
+
 
   const validateForm = () => {
     const newErrors = {}
@@ -220,16 +239,18 @@ Book Distribution
 
               <FormControl>
                 <FormLabel>Select Book</FormLabel>
-                <Select
-                  value={formData.selectedBook}
-                  onChange={(e) => handleInputChange("selectedBook", e.target.value)}
-                  placeholder="Select a book"
-                >
-                  {books.map((book) => (
-                    <option key={book} value={book}>
-                      {book}
-                    </option>
-                  ))}
+              <Select
+  value={formData.selectedBook}
+  onChange={(e) => handleInputChange("selectedBook", e.target.value)}
+  placeholder={bookLoading ? "Loading books..." : "Select a book"}
+  isDisabled={bookLoading || books.length === 0}
+>
+                 {books.map((book) => (
+  <option key={book._id} value={book.title}>
+    {book.title}
+  </option>
+))}
+
                 </Select>
               </FormControl>
                     <FormControl>
