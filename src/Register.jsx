@@ -30,6 +30,36 @@ import {
 //   "Life Comes From Life",
 //   "The Quest for Enlightenment",
 // ]
+const books = [
+  "Bhagavad-gītā As It Is",
+  "Śrīmad-Bhāgavatam",
+  "Śrī Caitanya-caritāmṛta",
+  "Nectar of Instruction",
+  "Kṛṣṇa, the Supreme Personality of Godhead",
+  "The Nectar of Devotion",
+  "Śrī Īśopaniṣad",
+  "The Science of Self-Realization",
+  "Beyond Birth and Death",
+  "Bhakti: The Art of Eternal Love",
+  "Śrī Brahma-saṁhitā",
+  "Civilization and Transcendence",
+  "The Path of Perfection",
+  "On the Way to Kṛṣṇa",
+  "The Journey of Self-Discovery",
+  "Rāja-vidyā: The King of Knowledge",
+  "Perfect Questions, Perfect Answers",
+  "The Perfection of Yoga",
+  "Teachings of Lord Kapila",
+  "Teachings of Lord Caitanya",
+  "A Second Chance",
+  "Chant and be happy",
+  "Light of the Bhāgavata",
+  "Teachings of Queen Kuntī",
+  "Mahābhārata - Retold by Kṛṣṇa Dharma dasa",
+  "Rāmāyaṇa",
+  "Śrīla Prabhupāda-līlāmṛta"
+];
+
 
 const Register = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -45,24 +75,24 @@ const Register = () => {
   })
   const [errors, setErrors] = useState({})
   const toast = useToast()
-  const [books, setBooks] = useState([]);
+  // const [books, setBooks] = useState([]);
 const [bookLoading, setBookLoading] = useState(true);
 
-useEffect(() => {
-  const fetchBooks = async () => {
-    try {
-      const response = await fetch("https://razor-pay-server-production.up.railway.app/book/getAllBooks");
-      const data = await response.json();
-      setBooks(data);
-    } catch (error) {
-      console.error("Error fetching books:", error);
-    } finally {
-      setBookLoading(false);
-    }
-  };
+// useEffect(() => {
+//   const fetchBooks = async () => {
+//     try {
+//       const response = await fetch("https://razor-pay-server-production.up.railway.app/book/getAllBooks");
+//       const data = await response.json();
+//       setBooks(data);
+//     } catch (error) {
+//       console.error("Error fetching books:", error);
+//     } finally {
+//       setBookLoading(false);
+//     }
+//   };
 
-  fetchBooks();
-}, []);
+//   fetchBooks();
+// }, []);
 
 
   const validateForm = () => {
@@ -237,22 +267,20 @@ Book Distribution
                 />
               </FormControl>
 
-              <FormControl>
-                <FormLabel>Select Book</FormLabel>
-              <Select
-  value={formData.selectedBook}
-  onChange={(e) => handleInputChange("selectedBook", e.target.value)}
-  placeholder={bookLoading ? "Loading books..." : "Select a book"}
-  isDisabled={bookLoading || books.length === 0}
->
-                 {books.map((book) => (
-  <option key={book._id} value={book.title}>
-    {book.title}
-  </option>
-))}
-
-                </Select>
-              </FormControl>
+             <FormControl>
+  <FormLabel>Select Book</FormLabel>
+  <Select
+    value={formData.selectedBook}
+    onChange={(e) => handleInputChange("selectedBook", e.target.value)}
+    placeholder="Select a book"
+  >
+    {books.map((book, index) => (
+      <option key={index} value={book}>
+        {book}
+      </option>
+    ))}
+  </Select>
+</FormControl>
                     <FormControl>
   <FormLabel>FOLK / Congregation</FormLabel>
 
