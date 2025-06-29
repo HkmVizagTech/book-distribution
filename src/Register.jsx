@@ -146,7 +146,7 @@ const [bookLoading, setBookLoading] = useState(true);
     setIsSubmitting(true)
 
     try {
-      const response = await fetch("https://razor-pay-server-production.up.railway.app/book/register", {
+      const response = await fetch("https://razor-pay-server-389286764509.asia-south1.run.app/book/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
