@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import {
   Box,
   Button,
@@ -21,15 +21,8 @@ import {
   Divider,
 } from "@chakra-ui/react"
 
-// const books = [
-//   "Bhagavad Gita As It Is",
-//   "Science of Self-Realization",
-//   "Journey of Self-Discovery",
-//   "Beyond Birth and Death",
-//   "Perfect Questions, Perfect Answers",
-//   "Life Comes From Life",
-//   "The Quest for Enlightenment",
-// ]
+const stalls = ["Annavaram", "Simhachalam", "Others"]
+
 const books = [
   "Bhagavad-gītā As It Is",
   "Śrīmad-Bhāgavatam",
@@ -71,28 +64,11 @@ const Register = () => {
     place: "",
     selectedBook: "",
     interestedInGitaSession: "",
-    folkOrCongregation:"",
+    folkOrCongregation: "",
+    stallName: "",
   })
   const [errors, setErrors] = useState({})
   const toast = useToast()
-  // const [books, setBooks] = useState([]);
-const [bookLoading, setBookLoading] = useState(true);
-
-// useEffect(() => {
-//   const fetchBooks = async () => {
-//     try {
-//       const response = await fetch("https://razor-pay-server-production.up.railway.app/book/getAllBooks");
-//       const data = await response.json();
-//       setBooks(data);
-//     } catch (error) {
-//       console.error("Error fetching books:", error);
-//     } finally {
-//       setBookLoading(false);
-//     }
-//   };
-
-//   fetchBooks();
-// }, []);
 
 
   const validateForm = () => {
@@ -118,6 +94,10 @@ const [bookLoading, setBookLoading] = useState(true);
 
     if (!formData.interestedInGitaSession) {
       newErrors.interestedInGitaSession = "Please select an option"
+    }
+
+    if (!formData.stallName) {
+      newErrors.stallName = "Please select a stall"
     }
 
     setErrors(newErrors)
@@ -180,7 +160,8 @@ const [bookLoading, setBookLoading] = useState(true);
         place: "",
         selectedBook: "",
         interestedInGitaSession: "",
-         folkOrCongregation: ""
+        folkOrCongregation: "",
+        stallName: "",
       })
     } catch (error) {
       toast({
@@ -200,8 +181,7 @@ const [bookLoading, setBookLoading] = useState(true);
       <Card variant="outline" boxShadow="md">
         <CardHeader>
           <Heading as="h1" size="xl" textAlign="center" mb={2}>
-           Srila Prabhupada's
-Book Distribution
+            Srila Prabhupada's Book Distribution
           </Heading>
           <Text textAlign="center" color="gray.600">
             Please fill out this form to receive your selected book
@@ -211,7 +191,7 @@ Book Distribution
         <CardBody>
           <Box as="form" onSubmit={handleSubmit}>
             <VStack spacing={6} align="stretch">
-              <FormControl isInvalid={!!errors.name} isRequired>
+              <FormControl isInvalid={!!errors.name} isRequired isDisabled={isSubmitting}>
                 <FormLabel>Name</FormLabel>
                 <Input
                   value={formData.name}
@@ -221,20 +201,17 @@ Book Distribution
                 <FormErrorMessage>{errors.name}</FormErrorMessage>
               </FormControl>
 
-              <FormControl isInvalid={!!errors.whatsappNumber} isRequired>
+              <FormControl isInvalid={!!errors.whatsappNumber} isRequired isDisabled={isSubmitting}>
                 <FormLabel>WhatsApp Number</FormLabel>
                 <Input
                   value={formData.whatsappNumber}
                   onChange={(e) => handleInputChange("whatsappNumber", e.target.value)}
-                  placeholder="Enter 10-digit WhatsApp number"
+                  placeholder="10-digit number without country code"
                 />
-                <Text fontSize="sm" color="gray.500">
-                 
-                </Text>
                 <FormErrorMessage>{errors.whatsappNumber}</FormErrorMessage>
               </FormControl>
 
-              <FormControl isInvalid={!!errors.age}>
+              <FormControl isInvalid={!!errors.age} isDisabled={isSubmitting}>
                 <FormLabel>Age</FormLabel>
                 <Input
                   type="number"
@@ -245,7 +222,7 @@ Book Distribution
                 <FormErrorMessage>{errors.age}</FormErrorMessage>
               </FormControl>
 
-              <FormControl>
+              <FormControl isDisabled={isSubmitting}>
                 <FormLabel>College or Working</FormLabel>
                 <Select
                   value={formData.collegeOrWorking}
@@ -258,7 +235,7 @@ Book Distribution
                 </Select>
               </FormControl>
 
-              <FormControl>
+              <FormControl isDisabled={isSubmitting}>
                 <FormLabel>Place</FormLabel>
                 <Input
                   value={formData.place}
@@ -267,36 +244,34 @@ Book Distribution
                 />
               </FormControl>
 
-             <FormControl>
-  <FormLabel>Select Book</FormLabel>
-  <Select
-    value={formData.selectedBook}
-    onChange={(e) => handleInputChange("selectedBook", e.target.value)}
-    placeholder="Select a book"
-  >
-    {books.map((book, index) => (
-      <option key={index} value={book}>
-        {book}
-      </option>
-    ))}
-  </Select>
-</FormControl>
-                    <FormControl>
-  <FormLabel>FOLK / Congregation</FormLabel>
+              <FormControl isDisabled={isSubmitting}>
+                <FormLabel>Select Book</FormLabel>
+                <Select
+                  value={formData.selectedBook}
+                  onChange={(e) => handleInputChange("selectedBook", e.target.value)}
+                  placeholder="Select a book"
+                >
+                  {books.map((book, index) => (
+                    <option key={index} value={book}>
+                      {book}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
 
+              <FormControl isDisabled={isSubmitting}>
+                <FormLabel>FOLK / Congregation</FormLabel>
+                <Select
+                  value={formData.folkOrCongregation}
+                  onChange={(e) => handleInputChange("folkOrCongregation", e.target.value)}
+                  placeholder="Select one"
+                >
+                  <option value="FOLK">FOLK</option>
+                  <option value="Congregation">Congregation</option>
+                </Select>
+              </FormControl>
 
-  <Select
-    value={formData.folkOrCongregation}
-    onChange={(e) => handleInputChange("folkOrCongregation", e.target.value)}
-    placeholder="Select one"
-  >
-    <option value="FOLK">FOLK</option>
-    <option value="Congregation">Congregation</option>
-   
-  </Select>
-</FormControl>
-
-              <FormControl isInvalid={!!errors.interestedInGitaSession} isRequired>
+              <FormControl isInvalid={!!errors.interestedInGitaSession} isRequired isDisabled={isSubmitting}>
                 <FormLabel>Interested in Gita Session?</FormLabel>
                 <RadioGroup
                   value={formData.interestedInGitaSession}
@@ -308,6 +283,22 @@ Book Distribution
                   </Stack>
                 </RadioGroup>
                 <FormErrorMessage>{errors.interestedInGitaSession}</FormErrorMessage>
+              </FormControl>
+
+              <FormControl isInvalid={!!errors.stallName} isRequired isDisabled={isSubmitting}>
+                <FormLabel>Stall Name</FormLabel>
+                <Select
+                  value={formData.stallName}
+                  onChange={(e) => handleInputChange("stallName", e.target.value)}
+                  placeholder="Select stall"
+                >
+                  {stalls.map((stall) => (
+                    <option key={stall} value={stall}>
+                      {stall}
+                    </option>
+                  ))}
+                </Select>
+                <FormErrorMessage>{errors.stallName}</FormErrorMessage>
               </FormControl>
 
               <Button
